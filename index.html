@@ -3,148 +3,152 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Sanzora AI — Photo & Video Editor</title>
+<title>Sanzora AI - Photo Editor</title>
 
 <style>
 *{
   box-sizing:border-box;
   margin:0;
   padding:0;
-  font-family:Arial,sans-serif;
 }
 
 body{
   background:#08090d;
-  color:#fff;
+  color:white;
+  font-family:Arial,sans-serif;
   min-height:100vh;
 }
 
 header{
-  height:70px;
-  padding:0 18px;
+  height:75px;
   display:flex;
   align-items:center;
   justify-content:space-between;
-  background:#10121a;
-  border-bottom:1px solid #292c38;
+  padding:0 22px;
+  border-bottom:1px solid #292b35;
   position:sticky;
   top:0;
-  z-index:20;
+  background:#08090d;
+  z-index:10;
 }
 
 .logo{
-  font-size:25px;
-  font-weight:800;
+  font-size:27px;
+  font-weight:bold;
 }
 
 .logo span{
-  color:#a477ff;
+  color:#a36cff;
 }
 
 .premium{
   border:0;
-  padding:11px 17px;
-  border-radius:25px;
-  color:#fff;
+  border-radius:30px;
+  padding:13px 20px;
+  color:white;
   font-weight:bold;
-  background:linear-gradient(135deg,#805cff,#d25cff);
-}
-
-.container{
-  max-width:1000px;
-  margin:auto;
-  padding:20px 15px 50px;
+  background:linear-gradient(90deg,#814cff,#d05cff);
 }
 
 .hero{
   text-align:center;
-  padding:20px 0 25px;
+  padding:35px 15px 20px;
 }
 
 .hero h1{
-  font-size:34px;
-  margin-bottom:9px;
+  font-size:35px;
+  margin-bottom:10px;
 }
 
 .hero h1 span{
-  color:#a477ff;
+  color:#a36cff;
 }
 
 .hero p{
-  color:#999daa;
+  color:#aaa;
 }
 
 .upload{
-  border:2px dashed #3a3d4b;
-  background:#11131b;
-  border-radius:22px;
-  padding:35px 15px;
-  text-align:center;
+  margin:25px auto;
+  max-width:700px;
+  min-height:230px;
+  border:2px dashed #454858;
+  border-radius:25px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  padding:25px;
+  background:#101219;
 }
 
 .upload-icon{
-  font-size:48px;
+  font-size:55px;
+  margin-bottom:12px;
+}
+
+.upload h2{
   margin-bottom:8px;
 }
 
 .upload p{
-  color:#858997;
-  margin:10px 0 20px;
+  color:#999;
+  margin-bottom:20px;
 }
 
-.select{
-  display:inline-block;
-  padding:14px 24px;
-  border-radius:25px;
-  background:#9873ff;
+.btn{
+  border:0;
+  border-radius:30px;
+  padding:14px 25px;
+  color:white;
+  background:linear-gradient(90deg,#8755ff,#b75cff);
+  font-size:16px;
   font-weight:bold;
   cursor:pointer;
 }
 
-#fileInput{
+input[type=file]{
   display:none;
 }
 
 .editor{
   display:none;
-  margin-top:20px;
+  max-width:1100px;
+  margin:20px auto;
+  padding:15px;
 }
 
-.canvas-wrap{
-  background:#050505;
+.canvas-box{
+  background:#11131a;
   border-radius:20px;
-  padding:10px;
-  overflow:hidden;
+  padding:15px;
   text-align:center;
 }
 
-#canvas{
-  width:100%;
-  max-height:600px;
-  object-fit:contain;
-  border-radius:14px;
-  background:#000;
+canvas{
+  max-width:100%;
+  max-height:55vh;
+  border-radius:12px;
+  background:#050505;
 }
 
-.panel{
-  background:#11131b;
+.tools{
+  margin-top:20px;
+  background:#11131a;
   border-radius:20px;
-  margin-top:15px;
   padding:18px;
 }
 
-.panel h2{
-  margin-bottom:15px;
+.tool-title{
   font-size:20px;
+  margin-bottom:15px;
 }
 
-.sliders{
-  display:grid;
-  gap:15px;
+.control{
+  margin:14px 0;
 }
 
-.slider label{
+.control label{
   display:flex;
   justify-content:space-between;
   margin-bottom:7px;
@@ -153,191 +157,114 @@ header{
 
 input[type=range]{
   width:100%;
-  accent-color:#9b78ff;
+  accent-color:#a05cff;
 }
 
-.grid{
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:9px;
+.buttons{
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+  margin-top:18px;
 }
 
-.btn{
-  padding:13px 5px;
-  border:1px solid #303340;
-  border-radius:13px;
-  background:#171922;
-  color:#fff;
+.small-btn{
+  background:#20232d;
+  color:white;
+  border:1px solid #383b48;
+  border-radius:12px;
+  padding:11px 15px;
   cursor:pointer;
 }
 
-.btn:hover{
-  border-color:#a477ff;
+.small-btn:hover{
+  background:#303341;
 }
 
-.effect.active{
-  background:#29203f;
-  border-color:#a477ff;
-}
-
-.tools{
-  margin-top:15px;
-}
-
-.text-row{
+.effects{
   display:grid;
-  grid-template-columns:1fr auto;
-  gap:8px;
-}
-
-.text-row input{
-  min-width:0;
-  padding:14px;
-  border-radius:13px;
-  border:1px solid #343744;
-  background:#08090d;
-  color:#fff;
-  outline:none;
-}
-
-.text-row button{
-  padding:0 18px;
-  border:0;
-  border-radius:13px;
-  background:#9873ff;
-  color:#fff;
-  font-weight:bold;
-}
-
-.sticker{
-  font-size:25px;
-}
-
-.animation-btn{
-  margin-top:10px;
-  width:100%;
-  padding:14px;
-  border:1px solid #343744;
-  border-radius:13px;
-  background:#171922;
-  color:#fff;
-}
-
-.prompt{
-  margin-top:15px;
-  background:#11131b;
-  padding:18px;
-  border-radius:20px;
-}
-
-.prompt-row{
-  display:flex;
-  gap:8px;
-}
-
-#prompt{
-  flex:1;
-  min-width:0;
-  padding:14px;
-  border-radius:13px;
-  border:1px solid #343744;
-  background:#08090d;
-  color:#fff;
-  outline:none;
-}
-
-.ai{
-  padding:0 18px;
-  border:0;
-  border-radius:13px;
-  color:#fff;
-  font-weight:bold;
-  background:linear-gradient(135deg,#765cff,#d05cff);
-}
-
-.status{
-  text-align:center;
-  color:#9c9fac;
-  margin-top:10px;
-  min-height:20px;
-}
-
-.actions{
-  display:grid;
-  grid-template-columns:1fr 1fr;
+  grid-template-columns:repeat(2,1fr);
   gap:10px;
   margin-top:15px;
 }
 
-.reset,
-.download{
-  padding:15px;
-  border-radius:15px;
-  font-weight:bold;
+.effect{
+  padding:13px;
+  border-radius:12px;
+  background:#1b1e27;
+  border:1px solid #333744;
+  color:white;
   cursor:pointer;
 }
 
-.reset{
-  background:#171922;
-  border:1px solid #353845;
-  color:#fff;
+.effect:hover{
+  border-color:#a05cff;
 }
 
 .download{
+  width:100%;
+  margin-top:20px;
+  padding:16px;
   border:0;
-  color:#fff;
-  background:linear-gradient(135deg,#9873ff,#d25cff);
+  border-radius:14px;
+  background:linear-gradient(90deg,#7c4dff,#cf55ff);
+  color:white;
+  font-size:17px;
+  font-weight:bold;
 }
 
 .premium-box{
-  margin-top:20px;
-  padding:22px;
+  max-width:900px;
+  margin:35px auto;
+  padding:25px;
+  border:1px solid #5e3a9c;
+  border-radius:22px;
+  background:linear-gradient(135deg,#14111e,#101219);
   text-align:center;
-  border-radius:20px;
-  background:#171226;
-  border:1px solid #45356b;
 }
 
 .premium-box h2{
-  margin-bottom:8px;
+  color:#c077ff;
+  margin-bottom:10px;
 }
 
-.premium-box p{
-  color:#aaa5b7;
-  line-height:1.5;
+.premium-grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:10px;
+  margin:20px 0;
+}
+
+.premium-item{
+  background:#1a1822;
+  padding:12px;
+  border-radius:10px;
 }
 
 footer{
   text-align:center;
   padding:30px;
-  color:#626572;
-  font-size:13px;
+  color:#777;
 }
 
 @media(max-width:600px){
-
   .hero h1{
     font-size:28px;
   }
 
-  .grid{
-    grid-template-columns:repeat(2,1fr);
+  header{
+    padding:0 15px;
   }
 
-  .prompt-row{
-    flex-direction:column;
+  .logo{
+    font-size:23px;
   }
 
-  .ai{
-    padding:13px;
+  .premium{
+    padding:10px 14px;
   }
 
-  .text-row{
+  .premium-grid{
     grid-template-columns:1fr;
-  }
-
-  .text-row button{
-    padding:13px;
   }
 }
 </style>
@@ -347,666 +274,297 @@ footer{
 
 <header>
   <div class="logo">Sanzora <span>AI</span></div>
-
-  <button class="premium" onclick="showPremium()">
-    💎 Premium
-  </button>
+  <button class="premium" onclick="premiumMessage()">💎 Premium</button>
 </header>
-
-<div class="container">
 
 <section class="hero">
   <h1>Create with <span>Sanzora AI</span></h1>
-  <p>Photo editing, effects and creative tools in one place.</p>
+  <p>Powerful photo editing made simple.</p>
 </section>
 
-<section class="upload">
-
+<section class="upload" id="uploadBox">
   <div class="upload-icon">🖼️</div>
+  <h2>Start Editing</h2>
+  <p>Select a photo from your phone.</p>
 
-  <h2>Start Creating</h2>
-
-  <p>Choose a photo from your device.</p>
-
-  <label class="select" for="fileInput">
+  <label class="btn">
     📁 Select Photo
+    <input type="file" id="photoInput" accept="image/*">
   </label>
-
-  <input id="fileInput" type="file" accept="image/*">
-
 </section>
 
 <section class="editor" id="editor">
 
-  <div class="canvas-wrap">
+  <div class="canvas-box">
     <canvas id="canvas"></canvas>
   </div>
 
+  <div class="tools">
 
-  <!-- ADJUST -->
-  <div class="panel">
+    <div class="tool-title">🎛️ Adjustments</div>
 
-    <h2>🎨 Adjust</h2>
-
-    <div class="sliders">
-
-      <div class="slider">
-        <label>
-          <span>Brightness</span>
-          <span id="brightnessValue">100%</span>
-        </label>
-
-        <input id="brightness"
-               type="range"
-               min="0"
-               max="200"
-               value="100">
-      </div>
-
-      <div class="slider">
-        <label>
-          <span>Contrast</span>
-          <span id="contrastValue">100%</span>
-        </label>
-
-        <input id="contrast"
-               type="range"
-               min="0"
-               max="200"
-               value="100">
-      </div>
-
-      <div class="slider">
-        <label>
-          <span>Saturation</span>
-          <span id="saturationValue">100%</span>
-        </label>
-
-        <input id="saturation"
-               type="range"
-               min="0"
-               max="200"
-               value="100">
-      </div>
-
+    <div class="control">
+      <label>
+        <span>☀️ Brightness</span>
+        <span id="brightnessValue">100</span>
+      </label>
+      <input id="brightness" type="range" min="0" max="200" value="100">
     </div>
 
-    <div class="grid tools">
-
-      <button class="btn" onclick="rotateLeft()">↶ Rotate</button>
-
-      <button class="btn" onclick="rotateRight()">↷ Rotate</button>
-
-      <button class="btn" onclick="flipImage()">↔️ Flip</button>
-
-      <button class="btn" onclick="resetEdit()">🔄 Reset</button>
-
+    <div class="control">
+      <label>
+        <span>◐ Contrast</span>
+        <span id="contrastValue">100</span>
+      </label>
+      <input id="contrast" type="range" min="0" max="200" value="100">
     </div>
 
-  </div>
+    <div class="control">
+      <label>
+        <span>🎨 Saturation</span>
+        <span id="saturationValue">100</span>
+      </label>
+      <input id="saturation" type="range" min="0" max="200" value="100">
+    </div>
 
+    <div class="control">
+      <label>
+        <span>🌫️ Blur</span>
+        <span id="blurValue">0</span>
+      </label>
+      <input id="blur" type="range" min="0" max="10" value="0">
+    </div>
 
-  <!-- EFFECTS -->
-  <div class="panel">
+    <div class="buttons">
+      <button class="small-btn" onclick="rotateLeft()">↩️ Rotate</button>
+      <button class="small-btn" onclick="rotateRight()">↪️ Rotate</button>
+      <button class="small-btn" onclick="resetEditor()">🔄 Reset</button>
+    </div>
 
-    <h2>✨ Effects</h2>
+    <br>
 
-    <div class="grid">
+    <div class="tool-title">✨ Effects</div>
 
-      <button class="btn effect active"
-        onclick="applyEffect(this,'normal')">
+    <div class="effects">
+
+      <button class="effect" onclick="effect('normal')">
         Original
       </button>
 
-      <button class="btn effect"
-        onclick="applyEffect(this,'cinematic')">
-        🎬 Cinematic
+      <button class="effect" onclick="effect('grayscale')">
+        🖤 Grayscale
       </button>
 
-      <button class="btn effect"
-        onclick="applyEffect(this,'vintage')">
-        📸 Vintage
+      <button class="effect" onclick="effect('sepia')">
+        🟤 Vintage
       </button>
 
-      <button class="btn effect"
-        onclick="applyEffect(this,'bw')">
-        ⚫ B&W
+      <button class="effect" onclick="effect('bright')">
+        ☀️ Bright
       </button>
 
-      <button class="btn effect"
-        onclick="applyEffect(this,'warm')">
-        🔥 Warm
+      <button class="effect" onclick="effect('contrast')">
+        🔥 High Contrast
       </button>
 
-      <button class="btn effect"
-        onclick="applyEffect(this,'cool')">
+      <button class="effect" onclick="effect('saturate')">
+        🌈 Color Pop
+      </button>
+
+      <button class="effect" onclick="effect('cool')">
         ❄️ Cool
       </button>
 
-      <button class="btn effect"
-        onclick="applyEffect(this,'dream')">
-        🌙 Dream
-      </button>
-
-      <button class="btn effect"
-        onclick="applyEffect(this,'vivid')">
-        🌈 Vivid
-      </button>
-
-      <button class="btn effect"
-        onclick="applyEffect(this,'retro')">
-        📼 Retro
-      </button>
-
-      <button class="btn effect"
-        onclick="applyEffect(this,'neon')">
-        💜 Neon
-      </button>
-
-      <button class="btn effect"
-        onclick="applyEffect(this,'fade')">
-        🌫️ Fade
-      </button>
-
-      <button class="btn effect"
-        onclick="applyEffect(this,'dramatic')">
-        🎞️ Dramatic
+      <button class="effect" onclick="effect('warm')">
+        🔥 Warm
       </button>
 
     </div>
-
-  </div>
-
-
-  <!-- TEXT -->
-  <div class="panel">
-
-    <h2>📝 Add Text</h2>
-
-    <div class="text-row">
-
-      <input
-        id="textInput"
-        type="text"
-        placeholder="Type your text...">
-
-      <button onclick="addText()">
-        Add Text
-      </button>
-
-    </div>
-
-    <div class="grid" style="margin-top:12px;">
-
-      <button class="btn" onclick="textSize(24)">
-        Small
-      </button>
-
-      <button class="btn" onclick="textSize(42)">
-        Medium
-      </button>
-
-      <button class="btn" onclick="textSize(64)">
-        Large
-      </button>
-
-      <button class="btn" onclick="clearText()">
-        Clear Text
-      </button>
-
-    </div>
-
-  </div>
-
-
-  <!-- STICKERS -->
-  <div class="panel">
-
-    <h2>😊 Stickers</h2>
-
-    <div class="grid">
-
-      <button class="btn sticker" onclick="addSticker('❤️')">❤️</button>
-
-      <button class="btn sticker" onclick="addSticker('🔥')">🔥</button>
-
-      <button class="btn sticker" onclick="addSticker('⭐')">⭐</button>
-
-      <button class="btn sticker" onclick="addSticker('😍')">😍</button>
-
-      <button class="btn sticker" onclick="addSticker('😎')">😎</button>
-
-      <button class="btn sticker" onclick="addSticker('✨')">✨</button>
-
-      <button class="btn sticker" onclick="addSticker('🎉')">🎉</button>
-
-      <button class="btn sticker" onclick="addSticker('🚀')">🚀</button>
-
-    </div>
-
-  </div>
-
-
-  <!-- ANIMATION -->
-  <div class="panel">
-
-    <h2>🎞️ Animation</h2>
-
-    <div class="grid">
-
-      <button class="btn" onclick="animation('zoom')">
-        🔍 Zoom
-      </button>
-
-      <button class="btn" onclick="animation('bounce')">
-        🟣 Bounce
-      </button>
-
-      <button class="btn" onclick="animation('shake')">
-        📳 Shake
-      </button>
-
-      <button class="btn" onclick="animation('none')">
-        ⏹️ Stop
-      </button>
-
-    </div>
-
-    <button class="animation-btn" onclick="previewAnimation()">
-      ▶️ Preview Animation
-    </button>
-
-  </div>
-
-
-  <!-- AI -->
-  <div class="prompt">
-
-    <h2>🤖 AI Prompt Editing</h2>
-
-    <div class="prompt-row">
-
-      <input
-        id="prompt"
-        type="text"
-        placeholder="Example: Make my photo cinematic">
-
-      <button class="ai" onclick="aiEdit()">
-        ✨ AI Edit
-      </button>
-
-    </div>
-
-    <div class="status" id="status"></div>
-
-  </div>
-
-
-  <div class="actions">
-
-    <button class="reset" onclick="resetEdit()">
-      🔄 Reset
-    </button>
 
     <button class="download" onclick="downloadImage()">
-      💾 Download
+      💾 Download Edited Photo
     </button>
 
   </div>
-
-
-  <div class="premium-box">
-
-    <h2>💎 Sanzora AI Premium</h2>
-
-    <p>
-      1000+ Effects • Advanced AI • Animations •
-      Premium Templates • High Quality Export
-    </p>
-
-  </div>
-
 </section>
 
-</div>
+<section class="premium-box">
+  <h2>💎 Sanzora AI Premium</h2>
+
+  <p>Unlock advanced creative tools.</p>
+
+  <div class="premium-grid">
+    <div class="premium-item">✨ 1000+ Effects</div>
+    <div class="premium-item">🎬 Video Editing</div>
+    <div class="premium-item">🤖 AI Editing</div>
+    <div class="premium-item">🎨 Advanced Filters</div>
+    <div class="premium-item">⚡ AI Enhancer</div>
+    <div class="premium-item">🪄 Background Tools</div>
+  </div>
+
+  <button class="btn" onclick="premiumMessage()">
+    💎 Explore Premium
+  </button>
+</section>
 
 <footer>
-© 2026 Sanzora AI — Photo & Video Editor
+  © 2026 Sanzora AI — Photo & Video Editor
 </footer>
-
 
 <script>
 
-const fileInput =
-document.getElementById("fileInput");
-
-const editor =
-document.getElementById("editor");
-
-const canvas =
-document.getElementById("canvas");
-
-const ctx =
-canvas.getContext("2d");
-
-const status =
-document.getElementById("status");
+const photoInput = document.getElementById("photoInput");
+const uploadBox = document.getElementById("uploadBox");
+const editor = document.getElementById("editor");
+const canvas = document.getElementById("canvas");
+const ctx = canvas.getContext("2d");
 
 let image = new Image();
-
 let rotation = 0;
 
-let flipX = 1;
+let settings = {
+  brightness:100,
+  contrast:100,
+  saturation:100,
+  blur:0,
+  effect:"normal"
+};
 
-let currentEffect = "normal";
-
-let textValue = "";
-
-let textFontSize = 42;
-
-let stickers = [];
-
-let animationType = "none";
-
-
-fileInput.addEventListener("change",function(){
+photoInput.addEventListener("change", function(){
 
   const file = this.files[0];
 
-  if(!file){
-    return;
-  }
+  if(!file) return;
 
-  if(!file.type.startsWith("image/")){
+  const reader = new FileReader();
 
-    alert("Please select an image.");
+  reader.onload = function(e){
 
-    return;
-  }
+    image.onload = function(){
 
-  const url =
-  URL.createObjectURL(file);
+      uploadBox.style.display = "none";
+      editor.style.display = "block";
 
-  image.onload = function(){
+      rotation = 0;
 
-    editor.style.display = "block";
+      resetValues();
 
-    rotation = 0;
-    flipX = 1;
-    currentEffect = "normal";
+      draw();
 
-    textValue = "";
-    stickers = [];
+      window.scrollTo({
+        top:0,
+        behavior:"smooth"
+      });
 
-    resetControls();
+    };
 
-    draw();
-
-    status.innerText =
-    "✅ Photo loaded successfully.";
-
-    URL.revokeObjectURL(url);
+    image.src = e.target.result;
   };
 
-  image.src = url;
-
+  reader.readAsDataURL(file);
 });
 
 
-document
-.getElementById("brightness")
-.addEventListener("input",function(){
-
-  document
-  .getElementById("brightnessValue")
-  .innerText = this.value + "%";
-
+document.getElementById("brightness").addEventListener("input",function(){
+  settings.brightness = this.value;
+  document.getElementById("brightnessValue").textContent = this.value;
   draw();
-
 });
 
-
-document
-.getElementById("contrast")
-.addEventListener("input",function(){
-
-  document
-  .getElementById("contrastValue")
-  .innerText = this.value + "%";
-
+document.getElementById("contrast").addEventListener("input",function(){
+  settings.contrast = this.value;
+  document.getElementById("contrastValue").textContent = this.value;
   draw();
-
 });
 
-
-document
-.getElementById("saturation")
-.addEventListener("input",function(){
-
-  document
-  .getElementById("saturationValue")
-  .innerText = this.value + "%";
-
+document.getElementById("saturation").addEventListener("input",function(){
+  settings.saturation = this.value;
+  document.getElementById("saturationValue").textContent = this.value;
   draw();
-
 });
 
-
-function getFilter(){
-
-  const b =
-  document.getElementById("brightness").value;
-
-  const c =
-  document.getElementById("contrast").value;
-
-  const s =
-  document.getElementById("saturation").value;
-
-  let filter =
-  "brightness("+b+"%) "+
-  "contrast("+c+"%) "+
-  "saturate("+s+"%)";
-
-
-  if(currentEffect === "cinematic"){
-    filter += " contrast(115%) saturate(110%)";
-  }
-
-  if(currentEffect === "vintage"){
-    filter += " sepia(45%) contrast(90%)";
-  }
-
-  if(currentEffect === "bw"){
-    filter += " grayscale(100%)";
-  }
-
-  if(currentEffect === "warm"){
-    filter += " sepia(25%) saturate(130%)";
-  }
-
-  if(currentEffect === "cool"){
-    filter += " hue-rotate(20deg) saturate(115%)";
-  }
-
-  if(currentEffect === "dream"){
-    filter += " brightness(110%) saturate(120%)";
-  }
-
-  if(currentEffect === "vivid"){
-    filter += " saturate(170%) contrast(110%)";
-  }
-
-  if(currentEffect === "retro"){
-    filter += " sepia(50%) contrast(105%)";
-  }
-
-  if(currentEffect === "neon"){
-    filter += " saturate(200%) contrast(125%)";
-  }
-
-  if(currentEffect === "fade"){
-    filter += " brightness(110%) contrast(80%) saturate(75%)";
-  }
-
-  if(currentEffect === "dramatic"){
-    filter += " contrast(150%) saturate(120%)";
-  }
-
-  return filter;
-}
+document.getElementById("blur").addEventListener("input",function(){
+  settings.blur = this.value;
+  document.getElementById("blurValue").textContent = this.value;
+  draw();
+});
 
 
 function draw(){
 
-  if(!image.src){
-    return;
-  }
+  if(!image.src) return;
 
-  const w =
-  image.naturalWidth;
+  let width = image.width;
+  let height = image.height;
 
-  const h =
-  image.naturalHeight;
-
-
-  if(rotation % 180 === 0){
-
-    canvas.width = w;
-    canvas.height = h;
-
+  if(rotation % 180 !== 0){
+    canvas.width = height;
+    canvas.height = width;
   }else{
-
-    canvas.width = h;
-    canvas.height = w;
-
+    canvas.width = width;
+    canvas.height = height;
   }
-
 
   ctx.save();
 
-  ctx.clearRect(
-    0,
-    0,
-    canvas.width,
-    canvas.height
-  );
+  ctx.translate(canvas.width/2,canvas.height/2);
 
+  ctx.rotate(rotation * Math.PI / 180);
 
-  ctx.translate(
-    canvas.width/2,
-    canvas.height/2
-  );
+  let filter = `
+    brightness(${settings.brightness}%)
+    contrast(${settings.contrast}%)
+    saturate(${settings.saturation}%)
+    blur(${settings.blur}px)
+  `;
 
+  if(settings.effect === "grayscale"){
+    filter += " grayscale(100%)";
+  }
 
-  ctx.rotate(
-    rotation * Math.PI / 180
-  );
+  if(settings.effect === "sepia"){
+    filter += " sepia(90%)";
+  }
 
+  if(settings.effect === "bright"){
+    filter += " brightness(125%)";
+  }
 
-  ctx.scale(
-    flipX,
-    1
-  );
+  if(settings.effect === "contrast"){
+    filter += " contrast(150%)";
+  }
 
+  if(settings.effect === "saturate"){
+    filter += " saturate(180%)";
+  }
 
-  ctx.filter =
-  getFilter();
+  if(settings.effect === "cool"){
+    filter += " saturate(110%) hue-rotate(15deg)";
+  }
 
+  if(settings.effect === "warm"){
+    filter += " saturate(130%) sepia(20%)";
+  }
+
+  ctx.filter = filter;
 
   ctx.drawImage(
     image,
-    -w/2,
-    -h/2,
-    w,
-    h
+    -width/2,
+    -height/2,
+    width,
+    height
   );
 
-
   ctx.restore();
-
-
-  drawOverlay();
-
 }
 
 
-function drawOverlay(){
+function effect(type){
 
-  ctx.save();
-
-  ctx.textAlign = "center";
-
-  ctx.textBaseline = "middle";
-
-
-  if(textValue){
-
-    ctx.font =
-    "bold " +
-    textFontSize +
-    "px Arial";
-
-    ctx.lineWidth = 8;
-
-    ctx.strokeStyle = "black";
-
-    ctx.fillStyle = "white";
-
-    ctx.strokeText(
-      textValue,
-      canvas.width/2,
-      canvas.height - 80
-    );
-
-    ctx.fillText(
-      textValue,
-      canvas.width/2,
-      canvas.height - 80
-    );
-  }
-
-
-  if(stickers.length){
-
-    stickers.forEach(function(item){
-
-      ctx.font =
-      "55px Arial";
-
-      ctx.fillText(
-        item.icon,
-        item.x,
-        item.y
-      );
-
-    });
-
-  }
-
-  ctx.restore();
-
-}
-
-
-function applyEffect(button,name){
-
-  document
-  .querySelectorAll(".effect")
-  .forEach(function(e){
-    e.classList.remove("active");
-  });
-
-  button.classList.add("active");
-
-  currentEffect = name;
+  settings.effect = type;
 
   draw();
-
-  status.innerText =
-  "✨ " +
-  button.innerText.trim() +
-  " applied.";
 }
 
 
@@ -1015,9 +573,6 @@ function rotateLeft(){
   rotation -= 90;
 
   draw();
-
-  status.innerText =
-  "↶ Rotated left.";
 }
 
 
@@ -1026,387 +581,62 @@ function rotateRight(){
   rotation += 90;
 
   draw();
-
-  status.innerText =
-  "↷ Rotated right.";
 }
 
 
-function flipImage(){
+function resetValues(){
 
-  flipX *= -1;
+  settings = {
+    brightness:100,
+    contrast:100,
+    saturation:100,
+    blur:0,
+    effect:"normal"
+  };
 
-  draw();
+  document.getElementById("brightness").value = 100;
+  document.getElementById("contrast").value = 100;
+  document.getElementById("saturation").value = 100;
+  document.getElementById("blur").value = 0;
 
-  status.innerText =
-  "↔️ Image flipped.";
+  document.getElementById("brightnessValue").textContent = 100;
+  document.getElementById("contrastValue").textContent = 100;
+  document.getElementById("saturationValue").textContent = 100;
+  document.getElementById("blurValue").textContent = 0;
 }
 
 
-function addText(){
-
-  const input =
-  document.getElementById("textInput");
-
-  const value =
-  input.value.trim();
-
-  if(!value){
-
-    status.innerText =
-    "📝 Please enter some text.";
-
-    return;
-  }
-
-  textValue = value;
-
-  draw();
-
-  status.innerText =
-  "📝 Text added.";
-
-}
-
-
-function textSize(size){
-
-  textFontSize = size;
-
-  if(textValue){
-    draw();
-  }
-
-  status.innerText =
-  "🔤 Text size changed.";
-}
-
-
-function clearText(){
-
-  textValue = "";
-
-  document
-  .getElementById("textInput")
-  .value = "";
-
-  draw();
-
-  status.innerText =
-  "🗑️ Text removed.";
-}
-
-
-function addSticker(icon){
-
-  stickers.push({
-
-    icon:icon,
-
-    x:canvas.width/2 +
-       (Math.random()-0.5)*200,
-
-    y:canvas.height/2 +
-       (Math.random()-0.5)*150
-
-  });
-
-  draw();
-
-  status.innerText =
-  "😊 Sticker added.";
-}
-
-
-function animation(type){
-
-  animationType = type;
-
-  status.innerText =
-  "🎞️ " + type + " animation selected.";
-
-}
-
-
-function previewAnimation(){
-
-  if(!image.src){
-
-    status.innerText =
-    "📁 First select a photo.";
-
-    return;
-  }
-
-  canvas.style.transition =
-  "transform .7s ease";
-
-  canvas.style.transform =
-  "scale(1)";
-
-
-  if(animationType === "zoom"){
-
-    canvas.style.transform =
-    "scale(1.08)";
-
-  }
-
-  if(animationType === "bounce"){
-
-    canvas.style.transform =
-    "translateY(-12px)";
-
-    setTimeout(function(){
-
-      canvas.style.transform =
-      "translateY(0)";
-
-    },500);
-
-  }
-
-  if(animationType === "shake"){
-
-    canvas.style.transform =
-    "translateX(8px)";
-
-    setTimeout(function(){
-
-      canvas.style.transform =
-      "translateX(-8px)";
-
-    },100);
-
-    setTimeout(function(){
-
-      canvas.style.transform =
-      "translateX(0)";
-
-    },200);
-
-  }
-
-  if(animationType === "none"){
-
-    canvas.style.transform =
-    "none";
-  }
-
-}
-
-
-function resetControls(){
-
-  document
-  .getElementById("brightness")
-  .value = 100;
-
-  document
-  .getElementById("contrast")
-  .value = 100;
-
-  document
-  .getElementById("saturation")
-  .value = 100;
-
-  document
-  .getElementById("brightnessValue")
-  .innerText = "100%";
-
-  document
-  .getElementById("contrastValue")
-  .innerText = "100%";
-
-  document
-  .getElementById("saturationValue")
-  .innerText = "100%";
-
-}
-
-
-function resetEdit(){
+function resetEditor(){
 
   rotation = 0;
 
-  flipX = 1;
-
-  currentEffect = "normal";
-
-  textValue = "";
-
-  stickers = [];
-
-  animationType = "none";
-
-  resetControls();
-
-
-  document
-  .querySelectorAll(".effect")
-  .forEach(function(e){
-    e.classList.remove("active");
-  });
-
-
-  document
-  .querySelector(".effect")
-  .classList.add("active");
-
-
-  document
-  .getElementById("textInput")
-  .value = "";
-
-
-  canvas.style.transform =
-  "none";
-
+  resetValues();
 
   draw();
-
-  status.innerText =
-  "🔄 Everything reset.";
 }
 
 
 function downloadImage(){
 
-  if(!image.src){
+  const link = document.createElement("a");
 
-    alert(
-      "पहिले photo select कर."
-    );
+  link.download = "sanzora-ai-edited.png";
 
-    return;
-  }
-
-
-  const link =
-  document.createElement("a");
-
-
-  link.download =
-  "Sanzora-AI-Edited.png";
-
-
-  link.href =
-  canvas.toDataURL("image/png");
-
+  link.href = canvas.toDataURL("image/png");
 
   link.click();
-
-
-  status.innerText =
-  "✅ Edited photo downloaded.";
 }
 
 
-function aiEdit(){
-
-  if(!image.src){
-
-    status.innerText =
-    "📁 First select a photo.";
-
-    return;
-  }
-
-
-  const text =
-  document
-  .getElementById("prompt")
-  .value
-  .toLowerCase()
-  .trim();
-
-
-  if(!text){
-
-    status.innerText =
-    "🤖 Write an AI prompt.";
-
-    return;
-  }
-
-
-  if(
-    text.includes("cinematic") ||
-    text.includes("movie")
-  ){
-
-    currentEffect =
-    "cinematic";
-
-  }else if(
-    text.includes("vintage") ||
-    text.includes("old")
-  ){
-
-    currentEffect =
-    "vintage";
-
-  }else if(
-    text.includes("black") ||
-    text.includes("white")
-  ){
-
-    currentEffect =
-    "bw";
-
-  }else if(
-    text.includes("warm")
-  ){
-
-    currentEffect =
-    "warm";
-
-  }else if(
-    text.includes("cool")
-  ){
-
-    currentEffect =
-    "cool";
-
-  }else if(
-    text.includes("vivid") ||
-    text.includes("color")
-  ){
-
-    currentEffect =
-    "vivid";
-
-  }else if(
-    text.includes("neon")
-  ){
-
-    currentEffect =
-    "neon";
-
-  }else{
-
-    currentEffect =
-    "cinematic";
-  }
-
-
-  draw();
-
-  status.innerText =
-  "✨ Sanzora AI applied your prompt.";
-}
-
-
-function showPremium(){
+function premiumMessage(){
 
   alert(
     "💎 Sanzora AI Premium\n\n" +
-    "1000+ Effects\n" +
-    "Advanced AI Editing\n" +
-    "Animations\n" +
-    "Premium Templates\n" +
-    "High Quality Export\n\n" +
-    "Premium system coming soon!"
+    "Premium features are coming soon!\n\n" +
+    "✨ 1000+ Effects\n" +
+    "🎬 Video Editor\n" +
+    "🤖 AI Editing\n" +
+    "⚡ AI Enhancer"
   );
 
 }
