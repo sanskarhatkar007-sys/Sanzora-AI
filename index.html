@@ -3,7 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Sanzora AI - Photo & Video Editor</title>
+
+<title>Sanzora AI — Photo & Video Editor</title>
 
 <style>
 *{
@@ -29,7 +30,7 @@ header{
   border-bottom:1px solid #292c38;
   position:sticky;
   top:0;
-  z-index:10;
+  z-index:20;
 }
 
 .logo{
@@ -45,15 +46,15 @@ header{
   border:0;
   padding:11px 17px;
   border-radius:25px;
-  color:white;
+  color:#fff;
   font-weight:bold;
   background:linear-gradient(135deg,#805cff,#d25cff);
 }
 
 .container{
-  max-width:950px;
+  max-width:1000px;
   margin:auto;
-  padding:25px 16px 50px;
+  padding:20px 15px 50px;
 }
 
 .hero{
@@ -63,7 +64,7 @@ header{
 
 .hero h1{
   font-size:34px;
-  margin-bottom:10px;
+  margin-bottom:9px;
 }
 
 .hero h1 span{
@@ -71,7 +72,7 @@ header{
 }
 
 .hero p{
-  color:#969aa8;
+  color:#999daa;
 }
 
 .upload{
@@ -84,16 +85,12 @@ header{
 
 .upload-icon{
   font-size:48px;
-  margin-bottom:10px;
-}
-
-.upload h2{
   margin-bottom:8px;
 }
 
 .upload p{
   color:#858997;
-  margin-bottom:20px;
+  margin:10px 0 20px;
 }
 
 .select{
@@ -114,16 +111,17 @@ header{
   margin-top:20px;
 }
 
-.preview{
+.canvas-wrap{
   background:#050505;
   border-radius:20px;
   padding:10px;
+  overflow:hidden;
   text-align:center;
 }
 
 #canvas{
   width:100%;
-  max-height:550px;
+  max-height:600px;
   object-fit:contain;
   border-radius:14px;
   background:#000;
@@ -138,6 +136,7 @@ header{
 
 .panel h2{
   margin-bottom:15px;
+  font-size:20px;
 }
 
 .sliders{
@@ -157,44 +156,71 @@ input[type=range]{
   accent-color:#9b78ff;
 }
 
-.tools{
+.grid{
   display:grid;
   grid-template-columns:repeat(4,1fr);
   gap:9px;
-  margin-top:18px;
 }
 
-.tool{
+.btn{
   padding:13px 5px;
   border:1px solid #303340;
   border-radius:13px;
   background:#171922;
-  color:white;
+  color:#fff;
   cursor:pointer;
 }
 
-.tool:hover{
+.btn:hover{
   border-color:#a477ff;
-}
-
-.effects{
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:9px;
-}
-
-.effect{
-  padding:14px 5px;
-  border:1px solid #303340;
-  border-radius:13px;
-  background:#171922;
-  color:#ddd;
-  cursor:pointer;
 }
 
 .effect.active{
-  border-color:#a477ff;
   background:#29203f;
+  border-color:#a477ff;
+}
+
+.tools{
+  margin-top:15px;
+}
+
+.text-row{
+  display:grid;
+  grid-template-columns:1fr auto;
+  gap:8px;
+}
+
+.text-row input{
+  min-width:0;
+  padding:14px;
+  border-radius:13px;
+  border:1px solid #343744;
+  background:#08090d;
+  color:#fff;
+  outline:none;
+}
+
+.text-row button{
+  padding:0 18px;
+  border:0;
+  border-radius:13px;
+  background:#9873ff;
+  color:#fff;
+  font-weight:bold;
+}
+
+.sticker{
+  font-size:25px;
+}
+
+.animation-btn{
+  margin-top:10px;
+  width:100%;
+  padding:14px;
+  border:1px solid #343744;
+  border-radius:13px;
+  background:#171922;
+  color:#fff;
 }
 
 .prompt{
@@ -204,10 +230,6 @@ input[type=range]{
   border-radius:20px;
 }
 
-.prompt h2{
-  margin-bottom:10px;
-}
-
 .prompt-row{
   display:flex;
   gap:8px;
@@ -215,11 +237,12 @@ input[type=range]{
 
 #prompt{
   flex:1;
+  min-width:0;
   padding:14px;
   border-radius:13px;
   border:1px solid #343744;
   background:#08090d;
-  color:white;
+  color:#fff;
   outline:none;
 }
 
@@ -227,7 +250,7 @@ input[type=range]{
   padding:0 18px;
   border:0;
   border-radius:13px;
-  color:white;
+  color:#fff;
   font-weight:bold;
   background:linear-gradient(135deg,#765cff,#d05cff);
 }
@@ -257,12 +280,12 @@ input[type=range]{
 .reset{
   background:#171922;
   border:1px solid #353845;
-  color:white;
+  color:#fff;
 }
 
 .download{
   border:0;
-  color:white;
+  color:#fff;
   background:linear-gradient(135deg,#9873ff,#d25cff);
 }
 
@@ -297,11 +320,7 @@ footer{
     font-size:28px;
   }
 
-  .effects{
-    grid-template-columns:repeat(2,1fr);
-  }
-
-  .tools{
+  .grid{
     grid-template-columns:repeat(2,1fr);
   }
 
@@ -310,6 +329,14 @@ footer{
   }
 
   .ai{
+    padding:13px;
+  }
+
+  .text-row{
+    grid-template-columns:1fr;
+  }
+
+  .text-row button{
     padding:13px;
   }
 }
@@ -330,34 +357,33 @@ footer{
 
 <section class="hero">
   <h1>Create with <span>Sanzora AI</span></h1>
-  <p>Powerful photo editing made simple.</p>
+  <p>Photo editing, effects and creative tools in one place.</p>
 </section>
 
 <section class="upload">
 
   <div class="upload-icon">🖼️</div>
 
-  <h2>Start Editing</h2>
+  <h2>Start Creating</h2>
 
-  <p>Select a photo from your phone.</p>
+  <p>Choose a photo from your device.</p>
 
-  <label for="fileInput" class="select">
+  <label class="select" for="fileInput">
     📁 Select Photo
   </label>
 
-  <input
-    id="fileInput"
-    type="file"
-    accept="image/*">
+  <input id="fileInput" type="file" accept="image/*">
 
 </section>
 
 <section class="editor" id="editor">
 
-  <div class="preview">
+  <div class="canvas-wrap">
     <canvas id="canvas"></canvas>
   </div>
 
+
+  <!-- ADJUST -->
   <div class="panel">
 
     <h2>🎨 Adjust</h2>
@@ -370,12 +396,11 @@ footer{
           <span id="brightnessValue">100%</span>
         </label>
 
-        <input
-          id="brightness"
-          type="range"
-          min="0"
-          max="200"
-          value="100">
+        <input id="brightness"
+               type="range"
+               min="0"
+               max="200"
+               value="100">
       </div>
 
       <div class="slider">
@@ -384,12 +409,11 @@ footer{
           <span id="contrastValue">100%</span>
         </label>
 
-        <input
-          id="contrast"
-          type="range"
-          min="0"
-          max="200"
-          value="100">
+        <input id="contrast"
+               type="range"
+               min="0"
+               max="200"
+               value="100">
       </div>
 
       <div class="slider">
@@ -398,100 +422,93 @@ footer{
           <span id="saturationValue">100%</span>
         </label>
 
-        <input
-          id="saturation"
-          type="range"
-          min="0"
-          max="200"
-          value="100">
+        <input id="saturation"
+               type="range"
+               min="0"
+               max="200"
+               value="100">
       </div>
 
     </div>
 
-    <div class="tools">
+    <div class="grid tools">
 
-      <button class="tool" onclick="rotateLeft()">
-        ↶ Rotate
-      </button>
+      <button class="btn" onclick="rotateLeft()">↶ Rotate</button>
 
-      <button class="tool" onclick="rotateRight()">
-        ↷ Rotate
-      </button>
+      <button class="btn" onclick="rotateRight()">↷ Rotate</button>
 
-      <button class="tool" onclick="flipImage()">
-        ↔️ Flip
-      </button>
+      <button class="btn" onclick="flipImage()">↔️ Flip</button>
 
-      <button class="tool" onclick="resetEdit()">
-        🔄 Reset
-      </button>
+      <button class="btn" onclick="resetEdit()">🔄 Reset</button>
 
     </div>
 
   </div>
 
+
+  <!-- EFFECTS -->
   <div class="panel">
 
     <h2>✨ Effects</h2>
 
-    <div class="effects">
+    <div class="grid">
 
-      <button class="effect active"
+      <button class="btn effect active"
         onclick="applyEffect(this,'normal')">
         Original
       </button>
 
-      <button class="effect"
+      <button class="btn effect"
         onclick="applyEffect(this,'cinematic')">
         🎬 Cinematic
       </button>
 
-      <button class="effect"
+      <button class="btn effect"
         onclick="applyEffect(this,'vintage')">
         📸 Vintage
       </button>
 
-      <button class="effect"
+      <button class="btn effect"
         onclick="applyEffect(this,'bw')">
         ⚫ B&W
       </button>
 
-      <button class="effect"
+      <button class="btn effect"
         onclick="applyEffect(this,'warm')">
         🔥 Warm
       </button>
 
-      <button class="effect"
+      <button class="btn effect"
         onclick="applyEffect(this,'cool')">
         ❄️ Cool
       </button>
 
-      <button class="effect"
+      <button class="btn effect"
         onclick="applyEffect(this,'dream')">
         🌙 Dream
       </button>
 
-      <button class="effect"
+      <button class="btn effect"
         onclick="applyEffect(this,'vivid')">
         🌈 Vivid
       </button>
 
-      <button class="effect"
+      <button class="btn effect"
         onclick="applyEffect(this,'retro')">
         📼 Retro
       </button>
 
-      <button class="effect"
+      <button class="btn effect"
         onclick="applyEffect(this,'neon')">
         💜 Neon
       </button>
 
-      <button class="effect"
+      <button class="btn effect"
         onclick="applyEffect(this,'fade')">
         🌫️ Fade
       </button>
 
-      <button class="effect"
+      <button class="btn effect"
         onclick="applyEffect(this,'dramatic')">
         🎞️ Dramatic
       </button>
@@ -500,6 +517,109 @@ footer{
 
   </div>
 
+
+  <!-- TEXT -->
+  <div class="panel">
+
+    <h2>📝 Add Text</h2>
+
+    <div class="text-row">
+
+      <input
+        id="textInput"
+        type="text"
+        placeholder="Type your text...">
+
+      <button onclick="addText()">
+        Add Text
+      </button>
+
+    </div>
+
+    <div class="grid" style="margin-top:12px;">
+
+      <button class="btn" onclick="textSize(24)">
+        Small
+      </button>
+
+      <button class="btn" onclick="textSize(42)">
+        Medium
+      </button>
+
+      <button class="btn" onclick="textSize(64)">
+        Large
+      </button>
+
+      <button class="btn" onclick="clearText()">
+        Clear Text
+      </button>
+
+    </div>
+
+  </div>
+
+
+  <!-- STICKERS -->
+  <div class="panel">
+
+    <h2>😊 Stickers</h2>
+
+    <div class="grid">
+
+      <button class="btn sticker" onclick="addSticker('❤️')">❤️</button>
+
+      <button class="btn sticker" onclick="addSticker('🔥')">🔥</button>
+
+      <button class="btn sticker" onclick="addSticker('⭐')">⭐</button>
+
+      <button class="btn sticker" onclick="addSticker('😍')">😍</button>
+
+      <button class="btn sticker" onclick="addSticker('😎')">😎</button>
+
+      <button class="btn sticker" onclick="addSticker('✨')">✨</button>
+
+      <button class="btn sticker" onclick="addSticker('🎉')">🎉</button>
+
+      <button class="btn sticker" onclick="addSticker('🚀')">🚀</button>
+
+    </div>
+
+  </div>
+
+
+  <!-- ANIMATION -->
+  <div class="panel">
+
+    <h2>🎞️ Animation</h2>
+
+    <div class="grid">
+
+      <button class="btn" onclick="animation('zoom')">
+        🔍 Zoom
+      </button>
+
+      <button class="btn" onclick="animation('bounce')">
+        🟣 Bounce
+      </button>
+
+      <button class="btn" onclick="animation('shake')">
+        📳 Shake
+      </button>
+
+      <button class="btn" onclick="animation('none')">
+        ⏹️ Stop
+      </button>
+
+    </div>
+
+    <button class="animation-btn" onclick="previewAnimation()">
+      ▶️ Preview Animation
+    </button>
+
+  </div>
+
+
+  <!-- AI -->
   <div class="prompt">
 
     <h2>🤖 AI Prompt Editing</h2>
@@ -521,6 +641,7 @@ footer{
 
   </div>
 
+
   <div class="actions">
 
     <button class="reset" onclick="resetEdit()">
@@ -532,6 +653,7 @@ footer{
     </button>
 
   </div>
+
 
   <div class="premium-box">
 
@@ -549,8 +671,9 @@ footer{
 </div>
 
 <footer>
-  © 2026 Sanzora AI — Photo & Video Editor
+© 2026 Sanzora AI — Photo & Video Editor
 </footer>
+
 
 <script>
 
@@ -577,8 +700,16 @@ let flipX = 1;
 
 let currentEffect = "normal";
 
+let textValue = "";
 
-fileInput.addEventListener("change", function(){
+let textFontSize = 42;
+
+let stickers = [];
+
+let animationType = "none";
+
+
+fileInput.addEventListener("change",function(){
 
   const file = this.files[0];
 
@@ -587,7 +718,9 @@ fileInput.addEventListener("change", function(){
   }
 
   if(!file.type.startsWith("image/")){
+
     alert("Please select an image.");
+
     return;
   }
 
@@ -599,12 +732,13 @@ fileInput.addEventListener("change", function(){
     editor.style.display = "block";
 
     rotation = 0;
-
     flipX = 1;
-
     currentEffect = "normal";
 
-    resetControlsOnly();
+    textValue = "";
+    stickers = [];
+
+    resetControls();
 
     draw();
 
@@ -621,7 +755,7 @@ fileInput.addEventListener("change", function(){
 
 document
 .getElementById("brightness")
-.addEventListener("input", function(){
+.addEventListener("input",function(){
 
   document
   .getElementById("brightnessValue")
@@ -634,7 +768,7 @@ document
 
 document
 .getElementById("contrast")
-.addEventListener("input", function(){
+.addEventListener("input",function(){
 
   document
   .getElementById("contrastValue")
@@ -647,7 +781,7 @@ document
 
 document
 .getElementById("saturation")
-.addEventListener("input", function(){
+.addEventListener("input",function(){
 
   document
   .getElementById("saturationValue")
@@ -658,76 +792,65 @@ document
 });
 
 
-function filterString(){
+function getFilter(){
 
-  const brightness =
+  const b =
   document.getElementById("brightness").value;
 
-  const contrast =
+  const c =
   document.getElementById("contrast").value;
 
-  const saturation =
+  const s =
   document.getElementById("saturation").value;
 
   let filter =
-  "brightness(" + brightness + "%) " +
-  "contrast(" + contrast + "%) " +
-  "saturate(" + saturation + "%)";
+  "brightness("+b+"%) "+
+  "contrast("+c+"%) "+
+  "saturate("+s+"%)";
 
 
   if(currentEffect === "cinematic"){
-    filter +=
-    " contrast(115%) saturate(110%)";
+    filter += " contrast(115%) saturate(110%)";
   }
 
   if(currentEffect === "vintage"){
-    filter +=
-    " sepia(45%) contrast(90%)";
+    filter += " sepia(45%) contrast(90%)";
   }
 
   if(currentEffect === "bw"){
-    filter +=
-    " grayscale(100%)";
+    filter += " grayscale(100%)";
   }
 
   if(currentEffect === "warm"){
-    filter +=
-    " sepia(25%) saturate(130%)";
+    filter += " sepia(25%) saturate(130%)";
   }
 
   if(currentEffect === "cool"){
-    filter +=
-    " hue-rotate(20deg) saturate(115%)";
+    filter += " hue-rotate(20deg) saturate(115%)";
   }
 
   if(currentEffect === "dream"){
-    filter +=
-    " brightness(110%) saturate(120%)";
+    filter += " brightness(110%) saturate(120%)";
   }
 
   if(currentEffect === "vivid"){
-    filter +=
-    " saturate(170%) contrast(110%)";
+    filter += " saturate(170%) contrast(110%)";
   }
 
   if(currentEffect === "retro"){
-    filter +=
-    " sepia(50%) contrast(105%)";
+    filter += " sepia(50%) contrast(105%)";
   }
 
   if(currentEffect === "neon"){
-    filter +=
-    " saturate(200%) contrast(125%)";
+    filter += " saturate(200%) contrast(125%)";
   }
 
   if(currentEffect === "fade"){
-    filter +=
-    " brightness(110%) contrast(80%) saturate(75%)";
+    filter += " brightness(110%) contrast(80%) saturate(75%)";
   }
 
   if(currentEffect === "dramatic"){
-    filter +=
-    " contrast(150%) saturate(120%)";
+    filter += " contrast(150%) saturate(120%)";
   }
 
   return filter;
@@ -771,8 +894,8 @@ function draw(){
 
 
   ctx.translate(
-    canvas.width / 2,
-    canvas.height / 2
+    canvas.width/2,
+    canvas.height/2
   );
 
 
@@ -788,35 +911,95 @@ function draw(){
 
 
   ctx.filter =
-  filterString();
+  getFilter();
 
 
   ctx.drawImage(
     image,
-    -w / 2,
-    -h / 2,
+    -w/2,
+    -h/2,
     w,
     h
   );
 
 
   ctx.restore();
+
+
+  drawOverlay();
+
 }
 
 
-function applyEffect(button,effectName){
+function drawOverlay(){
+
+  ctx.save();
+
+  ctx.textAlign = "center";
+
+  ctx.textBaseline = "middle";
+
+
+  if(textValue){
+
+    ctx.font =
+    "bold " +
+    textFontSize +
+    "px Arial";
+
+    ctx.lineWidth = 8;
+
+    ctx.strokeStyle = "black";
+
+    ctx.fillStyle = "white";
+
+    ctx.strokeText(
+      textValue,
+      canvas.width/2,
+      canvas.height - 80
+    );
+
+    ctx.fillText(
+      textValue,
+      canvas.width/2,
+      canvas.height - 80
+    );
+  }
+
+
+  if(stickers.length){
+
+    stickers.forEach(function(item){
+
+      ctx.font =
+      "55px Arial";
+
+      ctx.fillText(
+        item.icon,
+        item.x,
+        item.y
+      );
+
+    });
+
+  }
+
+  ctx.restore();
+
+}
+
+
+function applyEffect(button,name){
 
   document
   .querySelectorAll(".effect")
-  .forEach(function(item){
-    item.classList.remove("active");
+  .forEach(function(e){
+    e.classList.remove("active");
   });
-
 
   button.classList.add("active");
 
-  currentEffect =
-  effectName;
+  currentEffect = name;
 
   draw();
 
@@ -860,7 +1043,160 @@ function flipImage(){
 }
 
 
-function resetControlsOnly(){
+function addText(){
+
+  const input =
+  document.getElementById("textInput");
+
+  const value =
+  input.value.trim();
+
+  if(!value){
+
+    status.innerText =
+    "📝 Please enter some text.";
+
+    return;
+  }
+
+  textValue = value;
+
+  draw();
+
+  status.innerText =
+  "📝 Text added.";
+
+}
+
+
+function textSize(size){
+
+  textFontSize = size;
+
+  if(textValue){
+    draw();
+  }
+
+  status.innerText =
+  "🔤 Text size changed.";
+}
+
+
+function clearText(){
+
+  textValue = "";
+
+  document
+  .getElementById("textInput")
+  .value = "";
+
+  draw();
+
+  status.innerText =
+  "🗑️ Text removed.";
+}
+
+
+function addSticker(icon){
+
+  stickers.push({
+
+    icon:icon,
+
+    x:canvas.width/2 +
+       (Math.random()-0.5)*200,
+
+    y:canvas.height/2 +
+       (Math.random()-0.5)*150
+
+  });
+
+  draw();
+
+  status.innerText =
+  "😊 Sticker added.";
+}
+
+
+function animation(type){
+
+  animationType = type;
+
+  status.innerText =
+  "🎞️ " + type + " animation selected.";
+
+}
+
+
+function previewAnimation(){
+
+  if(!image.src){
+
+    status.innerText =
+    "📁 First select a photo.";
+
+    return;
+  }
+
+  canvas.style.transition =
+  "transform .7s ease";
+
+  canvas.style.transform =
+  "scale(1)";
+
+
+  if(animationType === "zoom"){
+
+    canvas.style.transform =
+    "scale(1.08)";
+
+  }
+
+  if(animationType === "bounce"){
+
+    canvas.style.transform =
+    "translateY(-12px)";
+
+    setTimeout(function(){
+
+      canvas.style.transform =
+      "translateY(0)";
+
+    },500);
+
+  }
+
+  if(animationType === "shake"){
+
+    canvas.style.transform =
+    "translateX(8px)";
+
+    setTimeout(function(){
+
+      canvas.style.transform =
+      "translateX(-8px)";
+
+    },100);
+
+    setTimeout(function(){
+
+      canvas.style.transform =
+      "translateX(0)";
+
+    },200);
+
+  }
+
+  if(animationType === "none"){
+
+    canvas.style.transform =
+    "none";
+  }
+
+}
+
+
+function resetControls(){
 
   document
   .getElementById("brightness")
@@ -897,13 +1233,19 @@ function resetEdit(){
 
   currentEffect = "normal";
 
-  resetControlsOnly();
+  textValue = "";
+
+  stickers = [];
+
+  animationType = "none";
+
+  resetControls();
 
 
   document
   .querySelectorAll(".effect")
-  .forEach(function(item){
-    item.classList.remove("active");
+  .forEach(function(e){
+    e.classList.remove("active");
   });
 
 
@@ -912,10 +1254,19 @@ function resetEdit(){
   .classList.add("active");
 
 
+  document
+  .getElementById("textInput")
+  .value = "";
+
+
+  canvas.style.transform =
+  "none";
+
+
   draw();
 
   status.innerText =
-  "🔄 Editing reset.";
+  "🔄 Everything reset.";
 }
 
 
@@ -940,9 +1291,7 @@ function downloadImage(){
 
 
   link.href =
-  canvas.toDataURL(
-    "image/png"
-  );
+  canvas.toDataURL("image/png");
 
 
   link.click();
@@ -958,7 +1307,7 @@ function aiEdit(){
   if(!image.src){
 
     status.innerText =
-    "📁 पहिले photo select कर.";
+    "📁 First select a photo.";
 
     return;
   }
@@ -975,7 +1324,7 @@ function aiEdit(){
   if(!text){
 
     status.innerText =
-    "🤖 AI prompt लिही.";
+    "🤖 Write an AI prompt.";
 
     return;
   }
@@ -999,8 +1348,7 @@ function aiEdit(){
 
   }else if(
     text.includes("black") ||
-    text.includes("white") ||
-    text.includes("b&w")
+    text.includes("white")
   ){
 
     currentEffect =
@@ -1022,18 +1370,11 @@ function aiEdit(){
 
   }else if(
     text.includes("vivid") ||
-    text.includes("colorful")
+    text.includes("color")
   ){
 
     currentEffect =
     "vivid";
-
-  }else if(
-    text.includes("retro")
-  ){
-
-    currentEffect =
-    "retro";
 
   }else if(
     text.includes("neon")
@@ -1049,15 +1390,7 @@ function aiEdit(){
   }
 
 
-  document
-  .querySelectorAll(".effect")
-  .forEach(function(item){
-    item.classList.remove("active");
-  });
-
-
   draw();
-
 
   status.innerText =
   "✨ Sanzora AI applied your prompt.";
@@ -1075,6 +1408,7 @@ function showPremium(){
     "High Quality Export\n\n" +
     "Premium system coming soon!"
   );
+
 }
 
 </script>
